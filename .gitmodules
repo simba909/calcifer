@@ -1,0 +1,3 @@
+[submodule "Calcifer/ddcctl"]
+	path = Calcifer/ddcctl
+	url = https://github.com/kfix/ddcctl

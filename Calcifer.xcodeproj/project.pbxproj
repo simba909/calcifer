@@ -12,6 +12,7 @@
 		F42B2426201B2E5200BB7202 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F42B2424201B2E5200BB7202 /* MainMenu.xib */; };
 		F42B242F201B4B1800BB7202 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B242E201B4B1800BB7202 /* StatusMenuController.swift */; };
 		F42B2431201B612600BB7202 /* BrightnessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B2430201B612600BB7202 /* BrightnessManager.swift */; };
+		F42B2436201B732200BB7202 /* DDC.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B2434201B732200BB7202 /* DDC.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,9 @@
 		F42B2428201B2E5200BB7202 /* Calcifer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Calcifer.entitlements; sourceTree = "<group>"; };
 		F42B242E201B4B1800BB7202 /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		F42B2430201B612600BB7202 /* BrightnessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessManager.swift; sourceTree = "<group>"; };
+		F42B2432201B72B200BB7202 /* Calcifer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Calcifer-Bridging-Header.h"; sourceTree = "<group>"; };
+		F42B2434201B732200BB7202 /* DDC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DDC.c; sourceTree = "<group>"; };
+		F42B2435201B732200BB7202 /* DDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,7 @@
 		F42B241F201B2E5200BB7202 /* Calcifer */ = {
 			isa = PBXGroup;
 			children = (
+				F42B2433201B72FF00BB7202 /* ddcctl */,
 				F42B2420201B2E5200BB7202 /* AppDelegate.swift */,
 				F42B2422201B2E5200BB7202 /* Assets.xcassets */,
 				F42B2428201B2E5200BB7202 /* Calcifer.entitlements */,
@@ -62,8 +67,18 @@
 				F42B2424201B2E5200BB7202 /* MainMenu.xib */,
 				F42B242E201B4B1800BB7202 /* StatusMenuController.swift */,
 				F42B2430201B612600BB7202 /* BrightnessManager.swift */,
+				F42B2432201B72B200BB7202 /* Calcifer-Bridging-Header.h */,
 			);
 			path = Calcifer;
+			sourceTree = "<group>";
+		};
+		F42B2433201B72FF00BB7202 /* ddcctl */ = {
+			isa = PBXGroup;
+			children = (
+				F42B2434201B732200BB7202 /* DDC.c */,
+				F42B2435201B732200BB7202 /* DDC.h */,
+			);
+			path = ddcctl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F42B242F201B4B1800BB7202 /* StatusMenuController.swift in Sources */,
+				F42B2436201B732200BB7202 /* DDC.c in Sources */,
 				F42B2431201B612600BB7202 /* BrightnessManager.swift in Sources */,
 				F42B2421201B2E5200BB7202 /* AppDelegate.swift in Sources */,
 			);
@@ -274,6 +290,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = se.jarbrant.Calcifer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Calcifer/Calcifer-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -289,6 +306,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = se.jarbrant.Calcifer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Calcifer/Calcifer-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
