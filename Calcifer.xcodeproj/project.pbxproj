@@ -10,6 +10,8 @@
 		F42B2421201B2E5200BB7202 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B2420201B2E5200BB7202 /* AppDelegate.swift */; };
 		F42B2423201B2E5200BB7202 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F42B2422201B2E5200BB7202 /* Assets.xcassets */; };
 		F42B2426201B2E5200BB7202 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F42B2424201B2E5200BB7202 /* MainMenu.xib */; };
+		F42B242F201B4B1800BB7202 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B242E201B4B1800BB7202 /* StatusMenuController.swift */; };
+		F42B2431201B612600BB7202 /* BrightnessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B2430201B612600BB7202 /* BrightnessManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		F42B2425201B2E5200BB7202 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F42B2427201B2E5200BB7202 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F42B2428201B2E5200BB7202 /* Calcifer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Calcifer.entitlements; sourceTree = "<group>"; };
+		F42B242E201B4B1800BB7202 /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		F42B2430201B612600BB7202 /* BrightnessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,9 +57,11 @@
 			children = (
 				F42B2420201B2E5200BB7202 /* AppDelegate.swift */,
 				F42B2422201B2E5200BB7202 /* Assets.xcassets */,
-				F42B2424201B2E5200BB7202 /* MainMenu.xib */,
-				F42B2427201B2E5200BB7202 /* Info.plist */,
 				F42B2428201B2E5200BB7202 /* Calcifer.entitlements */,
+				F42B2427201B2E5200BB7202 /* Info.plist */,
+				F42B2424201B2E5200BB7202 /* MainMenu.xib */,
+				F42B242E201B4B1800BB7202 /* StatusMenuController.swift */,
+				F42B2430201B612600BB7202 /* BrightnessManager.swift */,
 			);
 			path = Calcifer;
 			sourceTree = "<group>";
@@ -131,6 +137,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F42B242F201B4B1800BB7202 /* StatusMenuController.swift in Sources */,
+				F42B2431201B612600BB7202 /* BrightnessManager.swift in Sources */,
 				F42B2421201B2E5200BB7202 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
