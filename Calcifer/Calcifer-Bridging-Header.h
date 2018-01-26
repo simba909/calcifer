@@ -9,10 +9,6 @@
 #ifndef Calcifer_Bridging_Header_h
 #define Calcifer_Bridging_Header_h
 
-// These two are needed for DDC.h to compile
-#import <Foundation/Foundation.h>
-#import <AppKit/NSScreen.h>
-
-#import "DDC.h"
+#import "DisplayCommunicator.h"
 
 #endif /* Calcifer_Bridging_Header_h */

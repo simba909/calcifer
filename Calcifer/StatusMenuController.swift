@@ -15,7 +15,7 @@ class StatusMenuController: NSObject {
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private var slider: NSSlider?
 
-    private let brightnessManager = BrightnessManager()
+    private let displayManager = DisplayManager()
 
     override func awakeFromNib() {
         statusItem.title = "Calcifer"
@@ -33,7 +33,8 @@ class StatusMenuController: NSObject {
 
     @objc func sliderValueChanged() {
         if let sliderValue = slider?.doubleValue {
-            brightnessManager.setBrightness(sliderValue)
+            let adjustedSliderValue = Int(sliderValue.rounded(toPlaces: 2) * 100)
+            displayManager.setBrightness(adjustedSliderValue)
         }
     }
 
