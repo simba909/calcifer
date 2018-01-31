@@ -45,6 +45,21 @@ NSString *EDIDString(char *string)
     return [[DisplayProperties alloc] initWithName:@"Unknown display" andSerial:@"0"];
 }
 
+- (int)getBrightnessFor:(CGDirectDisplayID)display
+{
+    NSLog(@"Getting brightness for display %d", display);
+
+    struct DDCReadCommand command = {};
+    command.control_id = BRIGHTNESS;
+    command.max_value = 100;
+
+    if (!DDCRead(display, &command)) {
+        NSLog(@"Failed to get brightness from display :(");
+    }
+
+    return command.current_value;
+}
+
 - (void)setBrightness:(int)brightness forDisplay:(CGDirectDisplayID)display
 {
     NSLog(@"Setting brightness %d for display %d", brightness, display);

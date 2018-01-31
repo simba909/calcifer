@@ -14,6 +14,8 @@
 
 - (DisplayProperties *)getPropertiesFor:(CGDirectDisplayID)display;
 
+- (int)getBrightnessFor:(CGDirectDisplayID)display;
+
 - (void)setBrightness:(int)brightness forDisplay:(CGDirectDisplayID)display;
 
 @end

@@ -15,8 +15,17 @@ class DisplayManager: NSObject {
     private let maxDisplayCount: UInt32 = 8
     private var lastBrightness = 0
 
+    var externalDisplays: Array<CGDirectDisplayID> {
+        return getExternalDisplays()
+    }
+
     func getName(forDisplay displayId: CGDirectDisplayID) -> String {
         return communicator.getPropertiesFor(displayId).name
+    }
+
+    func getBrightness(forDisplay display: CGDirectDisplayID) -> Int {
+        let currentBrightness = communicator.getBrightnessFor(display)
+        return Int(currentBrightness)
     }
 
     func setBrightness(_ value: Int) {
@@ -24,7 +33,7 @@ class DisplayManager: NSObject {
             return
         }
 
-        if let displayId = getExternalDisplay() {
+        if let displayId = getExternalDisplays().first {
             communicator.setBrightness(Int32(value), forDisplay: displayId)
             lastBrightness = value
         } else {
@@ -32,7 +41,7 @@ class DisplayManager: NSObject {
         }
     }
 
-    private func getExternalDisplay() -> CGDirectDisplayID? {
+    private func getExternalDisplays() -> Array<CGDirectDisplayID> {
         var activeDisplays = [CGDirectDisplayID](repeating: 0, count: Int(maxDisplayCount))
         var displayCount: UInt32 = 0
 
@@ -47,6 +56,6 @@ class DisplayManager: NSObject {
             }
         }
 
-        return externalDisplays.first
+        return externalDisplays
     }
 }

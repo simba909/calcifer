@@ -24,6 +24,8 @@ class StatusMenuController: NSObject {
         let headerMenuItem = NSMenuItem(title: "Brightness:", action: nil, keyEquivalent: "")
         statusMenu.insertItem(headerMenuItem, at: 0)
 
+        statusMenu.delegate = self
+
         setupBrightnessSlider()
     }
 
@@ -55,5 +57,25 @@ class StatusMenuController: NSObject {
         menuItem.view = wrapper
 
         statusMenu.insertItem(menuItem, at: 1)
+    }
+}
+
+extension StatusMenuController : NSMenuDelegate {
+    func menuWillOpen(_ menu: NSMenu) {
+        print("Menu will open!")
+        // Try to get display name
+        if let display = displayManager.externalDisplays.first {
+            let exists = statusMenu.item(withTag: Int(display)) != nil
+
+            let currentBrightness = displayManager.getBrightness(forDisplay: display)
+            print("Display current brightness: \(currentBrightness)")
+
+            if !exists {
+                let name = displayManager.getName(forDisplay: display)
+                let menuItem = NSMenuItem(title: name, action: nil, keyEquivalent: "")
+                menuItem.tag = Int(display)
+                statusMenu.insertItem(menuItem, at: 0)
+            }
+        }
     }
 }
