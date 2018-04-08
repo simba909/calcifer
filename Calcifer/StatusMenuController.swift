@@ -6,76 +6,98 @@
 //  Copyright © 2018 Simon Jarbrant. All rights reserved.
 //
 
-import Cocoa
+import AppKit
+import Differ
 
 class StatusMenuController: NSObject {
 
-    @IBOutlet weak var statusMenu: NSMenu!
-
-    private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    private var slider: NSSlider?
+    @IBOutlet private weak var statusMenu: NSMenu!
 
     private let displayManager = DisplayManager()
 
+    private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+
+    private var displayItems = [DisplayMenuItem]()
+
+    override init() {
+        super.init()
+
+        displayManager.delegate = self
+    }
+
+    deinit {
+        displayManager.delegate = nil
+    }
+
     override func awakeFromNib() {
-        statusItem.title = "Calcifer"
-        statusItem.menu = statusMenu
+        let headerMenuItem = NSMenuItem(title: "Displays:", action: nil, keyEquivalent: "")
+        headerMenuItem.tag = 0
 
-        let headerMenuItem = NSMenuItem(title: "Brightness:", action: nil, keyEquivalent: "")
         statusMenu.insertItem(headerMenuItem, at: 0)
-
         statusMenu.delegate = self
 
-        setupBrightnessSlider()
+        statusItem.title = "Calcifer"
+        statusItem.menu = statusMenu
     }
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
     }
 
-    @objc func sliderValueChanged() {
-        if let sliderValue = slider?.doubleValue {
-            let adjustedSliderValue = Int(sliderValue.rounded(toPlaces: 2) * 100)
-            displayManager.setBrightness(adjustedSliderValue)
+    private func updateMenuItems() {
+        let headerIndex = statusMenu.indexOfItem(withTag: 0)
+        var separatorIndex = 0
+
+        for (index, menuItem) in statusMenu.items.enumerated() {
+            if menuItem.isSeparatorItem {
+                separatorIndex = index
+            }
         }
-    }
 
-    private func setupBrightnessSlider() {
-        let slider = NSSlider(target: self, action: #selector(sliderValueChanged))
-        slider.setFrameSize(NSSize(width: 160, height: 16))
-        slider.frame.origin.x = 20
-        slider.frame.origin.y = 6
+        assert(separatorIndex != 0, "Menu state invalid, can't update display items")
 
-        self.slider = slider
+        // TODO -> This doesn't feel right.. Refactor at a later stage!
+        if headerIndex.distance(to: separatorIndex) > 1 {
+            for index in headerIndex + 1..<separatorIndex {
+                statusMenu.removeItem(at: index)
+            }
+        }
 
-        // Wrapper used for padding. But... is this really the right way to do this? :/
-        let wrapper = NSView()
-        wrapper.setFrameSize(NSSize(width: 192, height: 28))
-        wrapper.addSubview(slider)
-
-        let menuItem = NSMenuItem()
-        menuItem.view = wrapper
-
-        statusMenu.insertItem(menuItem, at: 1)
+        let insertionStart = headerIndex + 1
+        for (index, displayItem) in displayItems.enumerated() {
+            statusMenu.insertItem(displayItem.menuItem, at: insertionStart + index)
+        }
     }
 }
 
 extension StatusMenuController : NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
-        print("Menu will open!")
-        // Try to get display name
-        if let display = displayManager.externalDisplays.first {
-            let exists = statusMenu.item(withTag: Int(display)) != nil
+        displayManager.refreshExternalDisplays()
+    }
+}
 
-            let currentBrightness = displayManager.getBrightness(forDisplay: display)
-            print("Display current brightness: \(currentBrightness)")
+extension StatusMenuController : DisplayProviderDelegate {
+    func didRefresh(externalDisplays displays: [Display]) {
+        let existingDisplays = displayItems.map { $0.display }
+        let diff = existingDisplays.diff(displays)
 
-            if !exists {
-                let name = displayManager.getName(forDisplay: display)
-                let menuItem = NSMenuItem(title: name, action: nil, keyEquivalent: "")
-                menuItem.tag = Int(display)
-                statusMenu.insertItem(menuItem, at: 0)
+        for patch in diff.patch(from: existingDisplays, to: displays) {
+            switch patch {
+            case .insertion(let index, let display):
+                let menuItem = DisplayMenuItem(withDisplay: display)
+                menuItem.delegate = self
+                displayItems.insert(menuItem, at: index)
+            case .deletion(let index):
+                displayItems.remove(at: index)
             }
         }
+
+        updateMenuItems()
+    }
+}
+
+extension StatusMenuController: DisplayMenuItemControlsDelegate {
+    func brightnessFor(_ display: Display, changedTo brightness: Int) {
+        print("Brightness for \(display.name) changed to: \(brightness)")
     }
 }

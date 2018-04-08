@@ -8,19 +8,38 @@
 
 import Foundation
 
-class DisplayManager: NSObject {
+protocol DisplayProvider {
+    var delegate: DisplayProviderDelegate? { get set }
+
+    var externalDisplays: [Display] { get }
+
+    func refreshExternalDisplays()
+}
+
+protocol DisplayProviderDelegate {
+    func didRefresh(externalDisplays displays: [Display])
+}
+
+class DisplayManager: NSObject, DisplayProvider {
 
     private let communicator = DisplayCommunicator()
 
     private let maxDisplayCount: UInt32 = 8
     private var lastBrightness = 0
 
-    var externalDisplays: Array<CGDirectDisplayID> {
-        return getExternalDisplays()
-    }
+    var delegate: DisplayProviderDelegate?
 
-    func getName(forDisplay displayId: CGDirectDisplayID) -> String {
-        return communicator.getPropertiesFor(displayId).name
+    var externalDisplays = [Display]()
+
+    func refreshExternalDisplays() {
+        print("Updating list of available displays...")
+        let displays = fetchExternalDisplayIds().compactMap { displayId -> Display? in
+            let properties = communicator.getPropertiesFor(displayId)
+            return Display(withId: displayId, basedOn: properties)
+        }
+
+        externalDisplays = displays
+        delegate?.didRefresh(externalDisplays: displays)
     }
 
     func getBrightness(forDisplay display: CGDirectDisplayID) -> Int {
@@ -33,7 +52,7 @@ class DisplayManager: NSObject {
             return
         }
 
-        if let displayId = getExternalDisplays().first {
+        if let displayId = fetchExternalDisplayIds().first {
             communicator.setBrightness(Int32(value), forDisplay: displayId)
             lastBrightness = value
         } else {
@@ -41,7 +60,7 @@ class DisplayManager: NSObject {
         }
     }
 
-    private func getExternalDisplays() -> Array<CGDirectDisplayID> {
+    private func fetchExternalDisplayIds() -> [CGDirectDisplayID] {
         var activeDisplays = [CGDirectDisplayID](repeating: 0, count: Int(maxDisplayCount))
         var displayCount: UInt32 = 0
 
