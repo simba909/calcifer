@@ -56,7 +56,6 @@ class StatusMenuController: NSObject {
 
         assert(separatorIndex != 0, "Menu state invalid, can't update display items")
 
-        // TODO -> This doesn't feel right.. Refactor at a later stage!
         if headerIndex.distance(to: separatorIndex) > 1 {
             for index in headerIndex + 1..<separatorIndex {
                 statusMenu.removeItem(at: index)
@@ -78,19 +77,12 @@ extension StatusMenuController : NSMenuDelegate {
 
 extension StatusMenuController : DisplayProviderDelegate {
     func didRefresh(externalDisplays displays: [Display]) {
-        let existingDisplays = displayItems.map { $0.display }
-        let diff = existingDisplays.diff(displays)
+        let updatedDisplayItems = displays.map { DisplayMenuItem(fromDisplay: $0) }
 
-        for patch in diff.patch(from: existingDisplays, to: displays) {
-            switch patch {
-            case .insertion(let index, let display):
-                let menuItem = DisplayMenuItem(withDisplay: display)
-                menuItem.delegate = self
-                displayItems.insert(menuItem, at: index)
-            case .deletion(let index):
-                displayItems.remove(at: index)
-            }
-        }
+
+        // The call to updateMenuItems() will properly remove any (now) old display references
+        let patches = patch(from: displayItems, to: updatedDisplayItems)
+        displayItems = displayItems.apply(patches)
 
         updateMenuItems()
     }

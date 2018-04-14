@@ -19,6 +19,7 @@
 		F442BB04201B813A00B8F2F7 /* Double+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F442BB03201B813A00B8F2F7 /* Double+Rounded.swift */; };
 		F475ED3D201BA924001C435F /* DisplayCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = F475ED3C201BA924001C435F /* DisplayCommunicator.m */; };
 		F475ED43201BACE7001C435F /* DisplayProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F475ED42201BACE7001C435F /* DisplayProperties.m */; };
+		F48046DA207A791400B0F2C2 /* CGDirectDisplayID+BuiltIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48046D9207A791400B0F2C2 /* CGDirectDisplayID+BuiltIn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		F475ED3E201BA941001C435F /* DisplayCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayCommunicator.h; sourceTree = "<group>"; };
 		F475ED41201BACE7001C435F /* DisplayProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayProperties.h; sourceTree = "<group>"; };
 		F475ED42201BACE7001C435F /* DisplayProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisplayProperties.m; sourceTree = "<group>"; };
+		F48046D9207A791400B0F2C2 /* CGDirectDisplayID+BuiltIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGDirectDisplayID+BuiltIn.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,10 +99,7 @@
 			children = (
 				F42B2428201B2E5200BB7202 /* Calcifer.entitlements */,
 				F42B2432201B72B200BB7202 /* Calcifer-Bridging-Header.h */,
-				F475ED3E201BA941001C435F /* DisplayCommunicator.h */,
-				F475ED41201BACE7001C435F /* DisplayProperties.h */,
-				F475ED3C201BA924001C435F /* DisplayCommunicator.m */,
-				F475ED42201BACE7001C435F /* DisplayProperties.m */,
+				F48046D8207A777200B0F2C2 /* DisplayCommunication */,
 				F42B2427201B2E5200BB7202 /* Info.plist */,
 				F42B2420201B2E5200BB7202 /* AppDelegate.swift */,
 				F4222E3B2077AD1D0044E11C /* Display.swift */,
@@ -128,8 +127,20 @@
 			isa = PBXGroup;
 			children = (
 				F442BB03201B813A00B8F2F7 /* Double+Rounded.swift */,
+				F48046D9207A791400B0F2C2 /* CGDirectDisplayID+BuiltIn.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F48046D8207A777200B0F2C2 /* DisplayCommunication */ = {
+			isa = PBXGroup;
+			children = (
+				F475ED3E201BA941001C435F /* DisplayCommunicator.h */,
+				F475ED41201BACE7001C435F /* DisplayProperties.h */,
+				F475ED3C201BA924001C435F /* DisplayCommunicator.m */,
+				F475ED42201BACE7001C435F /* DisplayProperties.m */,
+			);
+			path = DisplayCommunication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +257,7 @@
 			files = (
 				F42B242F201B4B1800BB7202 /* StatusMenuController.swift in Sources */,
 				F42B2436201B732200BB7202 /* DDC.c in Sources */,
+				F48046DA207A791400B0F2C2 /* CGDirectDisplayID+BuiltIn.swift in Sources */,
 				F4222E3A2077AB050044E11C /* DisplayMenuItem.swift in Sources */,
 				F475ED43201BACE7001C435F /* DisplayProperties.m in Sources */,
 				F4222E3C2077AD1D0044E11C /* Display.swift in Sources */,

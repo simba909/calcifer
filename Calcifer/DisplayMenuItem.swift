@@ -25,16 +25,19 @@ class DisplayMenuItem {
     }()
 
     let display: Display
-    let menuItem: NSMenuItem
+
+    lazy var menuItem: NSMenuItem = {
+        let item = NSMenuItem(title: display.name, action: nil, keyEquivalent: "")
+        item.tag = Int(display.id)
+        item.view = makeMenuItemView()
+
+        return item
+    }()
 
     var delegate: DisplayMenuItemControlsDelegate?
 
-    init(withDisplay display: Display) {
+    init(fromDisplay display: Display) {
         self.display = display
-
-        menuItem = NSMenuItem(title: display.name, action: nil, keyEquivalent: "")
-        menuItem.tag = Int(display.id)
-        menuItem.view = makeMenuItemView()
     }
 
     @objc private func sliderValueChanged() {
@@ -59,5 +62,11 @@ class DisplayMenuItem {
         wrapper.addSubview(label)
 
         return wrapper
+    }
+}
+
+extension DisplayMenuItem: Equatable {
+    static func == (lhs: DisplayMenuItem, rhs: DisplayMenuItem) -> Bool {
+        return lhs.display == rhs.display
     }
 }

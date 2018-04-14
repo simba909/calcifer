@@ -33,13 +33,31 @@ class DisplayManager: NSObject, DisplayProvider {
 
     func refreshExternalDisplays() {
         print("Updating list of available displays...")
-        let displays = fetchExternalDisplayIds().compactMap { displayId -> Display? in
-            let properties = communicator.getPropertiesFor(displayId)
-            return Display(withId: displayId, basedOn: properties)
+
+        let externalDisplayIds = fetchExternalDisplayIds()
+        var oldDisplayIds = [CGDirectDisplayID]()
+
+        // Remove any displays that are no longer connected
+        for (index, display) in externalDisplays.enumerated().reversed() {
+            oldDisplayIds.append(display.id)
+
+            if !externalDisplayIds.contains(display.id) {
+                externalDisplays.remove(at: index)
+            }
         }
 
-        externalDisplays = displays
-        delegate?.didRefresh(externalDisplays: displays)
+        // Add all new displays
+        for displayId in externalDisplayIds {
+            if !oldDisplayIds.contains(displayId) {
+                if let properties = communicator.getPropertiesFor(displayId),
+                    let display = Display(withId: displayId, basedOn: properties) {
+
+                    externalDisplays.append(display)
+                }
+            }
+        }
+
+        delegate?.didRefresh(externalDisplays: externalDisplays)
     }
 
     func getBrightness(forDisplay display: CGDirectDisplayID) -> Int {
