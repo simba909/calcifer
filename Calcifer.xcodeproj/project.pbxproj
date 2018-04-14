@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D104FA2A1E9AB3C881BC6C3E /* Pods_Calcifer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 498B146AB30294715F3E3FE6 /* Pods_Calcifer.framework */; };
+		6ED7E326D577B799728B9DBA /* libPods-Calcifer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DCC9CCCAA474A1161EA8DE0 /* libPods-Calcifer.a */; };
 		F4222E3A2077AB050044E11C /* DisplayMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4222E392077AB050044E11C /* DisplayMenuItem.swift */; };
 		F4222E3C2077AD1D0044E11C /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4222E3B2077AD1D0044E11C /* Display.swift */; };
 		F42B2421201B2E5200BB7202 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B2420201B2E5200BB7202 /* AppDelegate.swift */; };
@@ -23,8 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0DCC9CCCAA474A1161EA8DE0 /* libPods-Calcifer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Calcifer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		432AFC078458979767C4E4B0 /* Pods-Calcifer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calcifer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Calcifer/Pods-Calcifer.debug.xcconfig"; sourceTree = "<group>"; };
-		498B146AB30294715F3E3FE6 /* Pods_Calcifer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calcifer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10294AA2DF5BD2656696F52 /* Pods-Calcifer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calcifer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Calcifer/Pods-Calcifer.release.xcconfig"; sourceTree = "<group>"; };
 		F4222E392077AB050044E11C /* DisplayMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMenuItem.swift; sourceTree = "<group>"; };
 		F4222E3B2077AD1D0044E11C /* Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D104FA2A1E9AB3C881BC6C3E /* Pods_Calcifer.framework in Frameworks */,
+				6ED7E326D577B799728B9DBA /* libPods-Calcifer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +71,7 @@
 		C7B9C0F934CBFE66CB22F83D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				498B146AB30294715F3E3FE6 /* Pods_Calcifer.framework */,
+				0DCC9CCCAA474A1161EA8DE0 /* libPods-Calcifer.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -154,7 +154,6 @@
 				F42B2419201B2E5200BB7202 /* Sources */,
 				F42B241A201B2E5200BB7202 /* Frameworks */,
 				F42B241B201B2E5200BB7202 /* Resources */,
-				4A1DA3C92DB1B51CB324D686 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -212,24 +211,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4A1DA3C92DB1B51CB324D686 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Calcifer/Pods-Calcifer-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Differ/Differ.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differ.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Calcifer/Pods-Calcifer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E2DACCE7D7B4728916FDD179 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
