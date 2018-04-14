@@ -25,7 +25,8 @@ class DisplayManager: NSObject, DisplayProvider {
     private let communicator = DisplayCommunicator()
 
     private let maxDisplayCount: UInt32 = 8
-    private var lastBrightness = 0
+
+    private var workItems = [CGDirectDisplayID: DispatchWorkItem]()
 
     var delegate: DisplayProviderDelegate?
 
@@ -65,17 +66,20 @@ class DisplayManager: NSObject, DisplayProvider {
         return Int(currentBrightness)
     }
 
-    func setBrightness(_ value: Int) {
-        if value == lastBrightness {
-            return
+    func setBrightness(forDisplay display: CGDirectDisplayID, to value: Int) {
+        if let existingWorkItem = workItems[display] {
+            existingWorkItem.cancel()
         }
 
-        if let displayId = fetchExternalDisplayIds().first {
-            communicator.setBrightness(Int32(value), forDisplay: displayId)
-            lastBrightness = value
-        } else {
-            print("No external displays found :(")
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.communicator.setBrightness(Int32(value), forDisplay: display)
+            self?.workItems.removeValue(forKey: display)
         }
+
+        workItems[display] = workItem
+
+        DispatchQueue.global(qos: .background)
+            .asyncAfter(deadline: .now() + 0.1, execute: workItem)
     }
 
     private func fetchExternalDisplayIds() -> [CGDirectDisplayID] {

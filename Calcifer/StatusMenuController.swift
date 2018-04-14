@@ -77,8 +77,11 @@ extension StatusMenuController : NSMenuDelegate {
 
 extension StatusMenuController : DisplayProviderDelegate {
     func didRefresh(externalDisplays displays: [Display]) {
-        let updatedDisplayItems = displays.map { DisplayMenuItem(fromDisplay: $0) }
-
+        let updatedDisplayItems = displays.map { display -> DisplayMenuItem in
+            let menuItem = DisplayMenuItem(fromDisplay: display)
+            menuItem.delegate = self
+            return menuItem
+        }
 
         // The call to updateMenuItems() will properly remove any (now) old display references
         let patches = patch(from: displayItems, to: updatedDisplayItems)
@@ -90,6 +93,6 @@ extension StatusMenuController : DisplayProviderDelegate {
 
 extension StatusMenuController: DisplayMenuItemControlsDelegate {
     func brightnessFor(_ display: Display, changedTo brightness: Int) {
-        print("Brightness for \(display.name) changed to: \(brightness)")
+        displayManager.setBrightness(forDisplay: display.id, to: brightness)
     }
 }
