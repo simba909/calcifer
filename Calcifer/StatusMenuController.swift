@@ -83,7 +83,7 @@ extension StatusMenuController : DisplayManagerDelegate {
 }
 
 extension StatusMenuController: DisplayMenuItemControlsDelegate {
-    func brightnessFor(_ display: Display, changedTo brightness: Int) {
-        displayManager.setBrightness(forDisplay: display.id, to: brightness)
+    func brightnessSliderFor(_ display: Display, changedTo brightness: Int) {
+        displayManager.setBrightnessForDisplay(display.id, to: brightness)
     }
 }

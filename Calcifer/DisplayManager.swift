@@ -49,12 +49,12 @@ class DisplayManager: NSObject {
         delegate?.displayManager(self, didRefreshExternalDisplays: externalDisplays)
     }
 
-    func getBrightness(forDisplay display: CGDirectDisplayID) -> Int {
+    func getBrightnessForDisplay(_ display: CGDirectDisplayID) -> Int {
         let currentBrightness = communicator.getBrightnessFor(display)
         return Int(currentBrightness)
     }
 
-    func setBrightness(forDisplay display: CGDirectDisplayID, to value: Int) {
+    func setBrightnessForDisplay(_ display: CGDirectDisplayID, to value: Int) {
         communicator.setBrightness(Int32(value), forDisplay: display)
     }
 

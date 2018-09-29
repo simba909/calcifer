@@ -9,7 +9,7 @@
 import AppKit
 
 protocol DisplayMenuItemControlsDelegate {
-    func brightnessFor(_ display: Display, changedTo brightness: Int)
+    func brightnessSliderFor(_ display: Display, changedTo brightness: Int)
 }
 
 class DisplayMenuItem {
@@ -42,7 +42,7 @@ class DisplayMenuItem {
 
     @objc private func sliderValueChanged() {
         let adjustedSliderValue = Int(brightnessSlider.doubleValue.rounded(toPlaces: 2) * 100)
-        delegate?.brightnessFor(display, changedTo: adjustedSliderValue)
+        delegate?.brightnessSliderFor(display, changedTo: adjustedSliderValue)
     }
 
     private func makeMenuItemView() -> NSView {
