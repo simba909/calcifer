@@ -15,10 +15,7 @@ protocol DisplayManagerDelegate: class {
 class DisplayManager: NSObject {
 
     private let communicator = DisplayCommunicator()
-
     private let maxDisplayCount: UInt32 = 8
-
-    private var workItems: [CGDirectDisplayID: DispatchWorkItem] = [:]
 
     weak var delegate: DisplayManagerDelegate?
 
@@ -58,19 +55,7 @@ class DisplayManager: NSObject {
     }
 
     func setBrightness(forDisplay display: CGDirectDisplayID, to value: Int) {
-        if let existingWorkItem = workItems[display] {
-            existingWorkItem.cancel()
-        }
-
-        let workItem = DispatchWorkItem { [weak self] in
-            self?.communicator.setBrightness(Int32(value), forDisplay: display)
-            self?.workItems.removeValue(forKey: display)
-        }
-
-        workItems[display] = workItem
-
-        DispatchQueue.global(qos: .background)
-            .asyncAfter(deadline: .now() + 0.1, execute: workItem)
+        communicator.setBrightness(Int32(value), forDisplay: display)
     }
 
     private func fetchExternalDisplayIds() -> [CGDirectDisplayID] {

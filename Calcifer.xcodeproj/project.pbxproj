@@ -17,7 +17,7 @@
 		F42B2426201B2E5200BB7202 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F42B2424201B2E5200BB7202 /* MainMenu.xib */; };
 		F42B242F201B4B1800BB7202 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B242E201B4B1800BB7202 /* StatusMenuController.swift */; };
 		F42B2431201B612600BB7202 /* DisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B2430201B612600BB7202 /* DisplayManager.swift */; };
-		F42B2436201B732200BB7202 /* DDC.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B2434201B732200BB7202 /* DDC.c */; };
+		F42B2436201B732200BB7202 /* DDC.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B2434201B732200BB7202 /* DDC.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F442BB04201B813A00B8F2F7 /* Double+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F442BB03201B813A00B8F2F7 /* Double+Rounded.swift */; };
 		F475ED3D201BA924001C435F /* DisplayCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = F475ED3C201BA924001C435F /* DisplayCommunicator.m */; };
 		F475ED43201BACE7001C435F /* DisplayProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F475ED42201BACE7001C435F /* DisplayProperties.m */; };
