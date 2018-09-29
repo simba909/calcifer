@@ -1,5 +1,7 @@
 # Calcifer
 
 ## Setup
-`carthage bootstrap --platform macOS`
-
+```bash
+$ git submodule init
+$ carthage bootstrap --platform macOS
+```
