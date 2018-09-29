@@ -12,5 +12,7 @@
 !default.perspectivev3
 xcuserdata
 
-# Cocoapods
-Pods/
+# Carthage
+Carthage/Checkouts
+Carthage/Build
+
