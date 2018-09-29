@@ -13,6 +13,6 @@
 @property(nonnull, nonatomic, readonly) NSString *name;
 @property(nonnull, nonatomic, readonly) NSString *serial;
 
-- (id)initWithName:(nonnull NSString *)name andSerial:(nonnull NSString *)serial;
+- (nonnull id)initWithName:(nonnull NSString *)name andSerial:(nonnull NSString *)serial;
 
 @end
