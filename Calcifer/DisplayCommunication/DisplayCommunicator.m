@@ -23,26 +23,30 @@ NSString *EDIDString(char *string)
 {
     struct EDID edid = {};
 
-    if (EDIDTest(display, &edid)) {
-        NSString *name;
-        NSString *serial;
-
-        for (union descriptor *des = edid.descriptors; des < edid.descriptors + sizeof(edid.descriptors); des++) {
-            switch (des->text.type) {
-                case 0xFC:
-                    name = EDIDString(des->text.data);
-                    break;
-
-                case 0xFF:
-                    serial = EDIDString(des->text.data);
-                    break;
-            }
-        }
-
-        return [[DisplayProperties alloc] initWithName:name andSerial:serial];
+    if (!EDIDTest(display, &edid)) {
+        return nil;
     }
 
-    return [[DisplayProperties alloc] initWithName:@"Unknown display" andSerial:@"0"];
+    NSString *name;
+    NSString *serial;
+
+    for (union descriptor *des = edid.descriptors; des < edid.descriptors + sizeof(edid.descriptors); des++) {
+        switch (des->text.type) {
+            case 0xFC:
+                name = EDIDString(des->text.data);
+                break;
+
+            case 0xFF:
+                serial = EDIDString(des->text.data);
+                break;
+        }
+    }
+
+    if (name && serial) {
+        return [[DisplayProperties alloc] initWithName:name andSerial:serial];
+    } else {
+        return nil;
+    }
 }
 
 - (int)getBrightnessFor:(CGDirectDisplayID)display

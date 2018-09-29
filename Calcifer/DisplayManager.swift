@@ -8,29 +8,21 @@
 
 import Foundation
 
-protocol DisplayProvider {
-    var delegate: DisplayProviderDelegate? { get set }
-
-    var externalDisplays: [Display] { get }
-
-    func refreshExternalDisplays()
+protocol DisplayManagerDelegate: class {
+    func displayManager(_ manager: DisplayManager, didRefreshExternalDisplays displays: [Display])
 }
 
-protocol DisplayProviderDelegate {
-    func didRefresh(externalDisplays displays: [Display])
-}
-
-class DisplayManager: NSObject, DisplayProvider {
+class DisplayManager: NSObject {
 
     private let communicator = DisplayCommunicator()
 
     private let maxDisplayCount: UInt32 = 8
 
-    private var workItems = [CGDirectDisplayID: DispatchWorkItem]()
+    private var workItems: [CGDirectDisplayID: DispatchWorkItem] = [:]
 
-    var delegate: DisplayProviderDelegate?
+    weak var delegate: DisplayManagerDelegate?
 
-    var externalDisplays = [Display]()
+    private(set) var externalDisplays: [Display] = []
 
     func refreshExternalDisplays() {
         print("Updating list of available displays...")
@@ -50,15 +42,14 @@ class DisplayManager: NSObject, DisplayProvider {
         // Add all new displays
         for displayId in externalDisplayIds {
             if !oldDisplayIds.contains(displayId) {
-                if let properties = communicator.getPropertiesFor(displayId),
-                    let display = Display(withId: displayId, basedOn: properties) {
-
+                if let properties = communicator.getPropertiesFor(displayId) {
+                    let display = Display(id: displayId, name: properties.name, serial: properties.serial)
                     externalDisplays.append(display)
                 }
             }
         }
 
-        delegate?.didRefresh(externalDisplays: externalDisplays)
+        delegate?.displayManager(self, didRefreshExternalDisplays: externalDisplays)
     }
 
     func getBrightness(forDisplay display: CGDirectDisplayID) -> Int {
@@ -83,12 +74,12 @@ class DisplayManager: NSObject, DisplayProvider {
     }
 
     private func fetchExternalDisplayIds() -> [CGDirectDisplayID] {
-        var activeDisplays = [CGDirectDisplayID](repeating: 0, count: Int(maxDisplayCount))
+        var activeDisplays: [CGDirectDisplayID] = Array(repeating: 0, count: Int(maxDisplayCount))
         var displayCount: UInt32 = 0
 
         CGGetActiveDisplayList(maxDisplayCount, &activeDisplays, &displayCount)
 
-        var externalDisplays = [CGDirectDisplayID]()
+        var externalDisplays: [CGDirectDisplayID] = []
         for index in 0..<Int(displayCount) {
             let displayId = activeDisplays[index]
 

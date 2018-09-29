@@ -13,21 +13,10 @@ class StatusMenuController: NSObject {
 
     @IBOutlet private weak var statusMenu: NSMenu!
 
-    private let displayManager = DisplayManager()
-
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
-    private var displayItems = [DisplayMenuItem]()
-
-    override init() {
-        super.init()
-
-        displayManager.delegate = self
-    }
-
-    deinit {
-        displayManager.delegate = nil
-    }
+    private let displayManager = DisplayManager()
+    private var displayItems: [DisplayMenuItem] = []
 
     override func awakeFromNib() {
         let headerMenuItem = NSMenuItem(title: "Displays:", action: nil, keyEquivalent: "")
@@ -38,6 +27,8 @@ class StatusMenuController: NSObject {
 
         statusItem.title = "Calcifer"
         statusItem.menu = statusMenu
+
+        displayManager.delegate = self
     }
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
@@ -75,8 +66,8 @@ extension StatusMenuController : NSMenuDelegate {
     }
 }
 
-extension StatusMenuController : DisplayProviderDelegate {
-    func didRefresh(externalDisplays displays: [Display]) {
+extension StatusMenuController : DisplayManagerDelegate {
+    func displayManager(_ manager: DisplayManager, didRefreshExternalDisplays displays: [Display]) {
         let updatedDisplayItems = displays.map { display -> DisplayMenuItem in
             let menuItem = DisplayMenuItem(fromDisplay: display)
             menuItem.delegate = self

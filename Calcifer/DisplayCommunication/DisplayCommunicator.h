@@ -12,7 +12,7 @@
 
 @interface DisplayCommunicator : NSObject
 
-- (DisplayProperties *)getPropertiesFor:(CGDirectDisplayID)display;
+- (nullable DisplayProperties *)getPropertiesFor:(CGDirectDisplayID)display;
 
 - (int)getBrightnessFor:(CGDirectDisplayID)display;
 

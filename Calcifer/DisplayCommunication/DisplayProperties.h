@@ -10,9 +10,9 @@
 
 @interface DisplayProperties : NSObject
 
-@property(nonatomic, readonly) NSString *name;
-@property(nonatomic, readonly) NSString *serial;
+@property(nonnull, nonatomic, readonly) NSString *name;
+@property(nonnull, nonatomic, readonly) NSString *serial;
 
-- (id)initWithName:(NSString *)name andSerial:(NSString *)serial;
+- (id)initWithName:(nonnull NSString *)name andSerial:(nonnull NSString *)serial;
 
 @end

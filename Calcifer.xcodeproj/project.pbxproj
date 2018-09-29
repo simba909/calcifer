@@ -153,8 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				F475ED3E201BA941001C435F /* DisplayCommunicator.h */,
-				F475ED41201BACE7001C435F /* DisplayProperties.h */,
 				F475ED3C201BA924001C435F /* DisplayCommunicator.m */,
+				F475ED41201BACE7001C435F /* DisplayProperties.h */,
 				F475ED42201BACE7001C435F /* DisplayProperties.m */,
 			);
 			path = DisplayCommunication;
