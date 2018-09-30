@@ -168,6 +168,7 @@
 			buildConfigurationList = F42B242B201B2E5200BB7202 /* Build configuration list for PBXNativeTarget "Calcifer" */;
 			buildPhases = (
 				F42B2419201B2E5200BB7202 /* Sources */,
+				F4CF380621609E70004E5B71 /* Run SwiftLint */,
 				F42B241A201B2E5200BB7202 /* Frameworks */,
 				F42B241B201B2E5200BB7202 /* Resources */,
 				F40964F4215F89B500F1F638 /* Embed Frameworks */,
@@ -228,6 +229,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F4CF380621609E70004E5B71 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F42B2419201B2E5200BB7202 /* Sources */ = {

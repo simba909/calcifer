@@ -1,0 +1,9 @@
+# Only include Calcifer sources
+included:
+  - Calcifer
+
+# Rule overrides
+identifier_name:
+  excluded:
+    - id
+

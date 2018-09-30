@@ -8,7 +8,7 @@
 
 import AppKit
 
-protocol DisplayMenuItemControlsDelegate {
+protocol DisplayMenuItemControlsDelegate: class {
     func brightnessSliderFor(_ display: Display, changedTo brightness: Int)
 }
 
@@ -34,7 +34,7 @@ class DisplayMenuItem {
         return item
     }()
 
-    var delegate: DisplayMenuItemControlsDelegate?
+    weak var delegate: DisplayMenuItemControlsDelegate?
 
     init(fromDisplay display: Display) {
         self.display = display

@@ -39,10 +39,8 @@ class StatusMenuController: NSObject {
         let headerIndex = statusMenu.indexOfItem(withTag: 0)
         var separatorIndex = 0
 
-        for (index, menuItem) in statusMenu.items.enumerated() {
-            if menuItem.isSeparatorItem {
-                separatorIndex = index
-            }
+        for (index, menuItem) in statusMenu.items.enumerated() where menuItem.isSeparatorItem {
+            separatorIndex = index
         }
 
         assert(separatorIndex != 0, "Menu state invalid, can't update display items")
@@ -60,13 +58,13 @@ class StatusMenuController: NSObject {
     }
 }
 
-extension StatusMenuController : NSMenuDelegate {
+extension StatusMenuController: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         displayManager.refreshExternalDisplays()
     }
 }
 
-extension StatusMenuController : DisplayManagerDelegate {
+extension StatusMenuController: DisplayManagerDelegate {
     func displayManager(_ manager: DisplayManager, didRefreshExternalDisplays displays: [Display]) {
         let updatedDisplayItems = displays.map { display -> DisplayMenuItem in
             let menuItem = DisplayMenuItem(fromDisplay: display)
