@@ -94,6 +94,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F41EB8B2216374FB00CAC744 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F42B2422201B2E5200BB7202 /* Assets.xcassets */,
+				F42B2432201B72B200BB7202 /* Calcifer-Bridging-Header.h */,
+				F42B2428201B2E5200BB7202 /* Calcifer.entitlements */,
+				F42B2427201B2E5200BB7202 /* Info.plist */,
+				F42B2424201B2E5200BB7202 /* MainMenu.xib */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		F42B2414201B2E5200BB7202 = {
 			isa = PBXGroup;
 			children = (
@@ -114,19 +126,15 @@
 		F42B241F201B2E5200BB7202 /* Calcifer */ = {
 			isa = PBXGroup;
 			children = (
-				F42B2428201B2E5200BB7202 /* Calcifer.entitlements */,
-				F42B2432201B72B200BB7202 /* Calcifer-Bridging-Header.h */,
-				F48046D8207A777200B0F2C2 /* DisplayCommunication */,
-				F42B2427201B2E5200BB7202 /* Info.plist */,
 				F42B2420201B2E5200BB7202 /* AppDelegate.swift */,
+				F42B2433201B72FF00BB7202 /* ddcctl */,
 				F4222E3B2077AD1D0044E11C /* Display.swift */,
+				F48046D8207A777200B0F2C2 /* DisplayCommunication */,
 				F42B2430201B612600BB7202 /* DisplayManager.swift */,
 				F4222E392077AB050044E11C /* DisplayMenuItem.swift */,
-				F42B242E201B4B1800BB7202 /* StatusMenuController.swift */,
-				F42B2422201B2E5200BB7202 /* Assets.xcassets */,
-				F42B2433201B72FF00BB7202 /* ddcctl */,
 				F442BB05201B819100B8F2F7 /* Extensions */,
-				F42B2424201B2E5200BB7202 /* MainMenu.xib */,
+				F42B242E201B4B1800BB7202 /* StatusMenuController.swift */,
+				F41EB8B2216374FB00CAC744 /* Supporting Files */,
 			);
 			path = Calcifer;
 			sourceTree = "<group>";
@@ -397,18 +405,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Calcifer/Calcifer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Calcifer/Supporting Files/Calcifer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = Calcifer/Info.plist;
+				INFOPLIST_FILE = "Calcifer/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = se.jarbrant.Calcifer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Calcifer/Calcifer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Calcifer/Supporting Files/Calcifer-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -417,18 +425,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Calcifer/Calcifer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Calcifer/Supporting Files/Calcifer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = Calcifer/Info.plist;
+				INFOPLIST_FILE = "Calcifer/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = se.jarbrant.Calcifer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Calcifer/Calcifer-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Calcifer/Supporting Files/Calcifer-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
