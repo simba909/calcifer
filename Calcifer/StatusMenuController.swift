@@ -23,12 +23,13 @@ class StatusMenuController: NSObject {
         headerMenuItem.tag = 0
 
         statusMenu.insertItem(headerMenuItem, at: 0)
-        statusMenu.delegate = self
 
         statusItem.title = "Calcifer"
         statusItem.menu = statusMenu
 
         displayManager.delegate = self
+        displayManager.monitorDisplayChanges()
+        displayManager.refreshExternalDisplays()
     }
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
@@ -55,12 +56,6 @@ class StatusMenuController: NSObject {
         for (index, displayItem) in displayItems.enumerated() {
             statusMenu.insertItem(displayItem.menuItem, at: insertionStart + index)
         }
-    }
-}
-
-extension StatusMenuController: NSMenuDelegate {
-    func menuWillOpen(_ menu: NSMenu) {
-        displayManager.refreshExternalDisplays()
     }
 }
 

@@ -6,7 +6,8 @@
 //  Copyright © 2018 Simon Jarbrant. All rights reserved.
 //
 
-import Foundation
+import AppKit
+import Differ
 
 protocol DisplayManagerDelegate: class {
     func displayManager(_ manager: DisplayManager, didRefreshExternalDisplays displays: [Display])
@@ -20,29 +21,51 @@ class DisplayManager: NSObject {
     weak var delegate: DisplayManagerDelegate?
 
     private(set) var externalDisplays: [Display] = []
+    private(set) var monitoringChanges = false
+
+    func monitorDisplayChanges() {
+        if monitoringChanges { return }
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(displayConfigurationUpdated),
+                                       name: NSApplication.didChangeScreenParametersNotification,
+                                       object: nil)
+
+        monitoringChanges = true
+    }
+
+    func stopMonitoringDisplayChanges() {
+        guard monitoringChanges else { return }
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self,
+                                          name: NSApplication.didChangeScreenParametersNotification,
+                                          object: nil)
+
+        monitoringChanges = false
+    }
 
     func refreshExternalDisplays() {
         print("Updating list of available displays...")
 
         let externalDisplayIds = fetchExternalDisplayIds()
-        var oldDisplayIds = [CGDirectDisplayID]()
+        let oldDisplayIds = externalDisplays.map { $0.id }
 
-        // Remove any displays that are no longer connected
-        for (index, display) in externalDisplays.enumerated().reversed() {
-            oldDisplayIds.append(display.id)
+        let diff = oldDisplayIds.diff(externalDisplayIds)
+        let patches = diff.patch(from: oldDisplayIds, to: externalDisplayIds)
 
-            if !externalDisplayIds.contains(display.id) {
+        for patch in patches {
+            switch patch {
+            case .deletion(index: let index):
                 externalDisplays.remove(at: index)
-            }
-        }
-
-        // Add all new displays
-        for displayId in externalDisplayIds {
-            if !oldDisplayIds.contains(displayId) {
-                if let properties = communicator.getPropertiesFor(displayId) {
-                    let display = Display(id: displayId, name: properties.name, serial: properties.serial)
-                    externalDisplays.append(display)
+            case .insertion(index: _, element: let displayID):
+                guard let properties = communicator.getPropertiesFor(displayID) else {
+                    continue
                 }
+
+                let display = Display(id: displayID, name: properties.name, serial: properties.serial)
+                externalDisplays.append(display)
             }
         }
 
@@ -56,6 +79,10 @@ class DisplayManager: NSObject {
 
     func setBrightnessForDisplay(_ display: CGDirectDisplayID, to value: Int) {
         communicator.setBrightness(Int32(value), forDisplay: display)
+    }
+
+    @objc private func displayConfigurationUpdated(notification: Notification) {
+        refreshExternalDisplays()
     }
 
     private func fetchExternalDisplayIds() -> [CGDirectDisplayID] {
