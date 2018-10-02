@@ -7,7 +7,6 @@
 //
 
 import AppKit
-import Differ
 
 protocol DisplayManagerDelegate: class {
     func displayManager(_ manager: DisplayManager, didRefreshExternalDisplays displays: [Display])
@@ -20,7 +19,6 @@ class DisplayManager: NSObject {
 
     weak var delegate: DisplayManagerDelegate?
 
-    private(set) var externalDisplays: [Display] = []
     private(set) var monitoringChanges = false
 
     func monitorDisplayChanges() {
@@ -49,36 +47,25 @@ class DisplayManager: NSObject {
     func refreshExternalDisplays() {
         print("Updating list of available displays...")
 
-        let externalDisplayIds = fetchExternalDisplayIds()
-        let oldDisplayIds = externalDisplays.map { $0.id }
-
-        let diff = oldDisplayIds.diff(externalDisplayIds)
-        let patches = diff.patch(from: oldDisplayIds, to: externalDisplayIds)
-
-        for patch in patches {
-            switch patch {
-            case .deletion(index: let index):
-                externalDisplays.remove(at: index)
-            case .insertion(index: _, element: let displayID):
-                guard let properties = communicator.getPropertiesFor(displayID) else {
-                    continue
-                }
-
-                let display = Display(id: displayID, name: properties.name, serial: properties.serial)
-                externalDisplays.append(display)
+        let displayIds = fetchExternalDisplayIds()
+        let displays = displayIds.compactMap { displayId -> Display? in
+            guard let properties = communicator.getPropertiesFor(displayId) else {
+                return nil
             }
+
+            return Display(id: displayId, name: properties.name, serial: properties.serial)
         }
 
-        delegate?.displayManager(self, didRefreshExternalDisplays: externalDisplays)
+        delegate?.displayManager(self, didRefreshExternalDisplays: displays)
     }
 
-    func getBrightnessForDisplay(_ display: CGDirectDisplayID) -> Int {
-        let currentBrightness = communicator.getBrightnessFor(display)
+    func getBrightnessForDisplay(_ displayId: CGDirectDisplayID) -> Int {
+        let currentBrightness = communicator.getBrightnessFor(displayId)
         return Int(currentBrightness)
     }
 
-    func setBrightnessForDisplay(_ display: CGDirectDisplayID, to value: Int) {
-        communicator.setBrightness(Int32(value), forDisplay: display)
+    func setBrightnessForDisplay(_ displayId: CGDirectDisplayID, to value: Int) {
+        communicator.setBrightness(Int32(value), forDisplay: displayId)
     }
 
     @objc private func displayConfigurationUpdated(notification: Notification) {

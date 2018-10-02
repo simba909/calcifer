@@ -14,14 +14,17 @@ class StatusMenuController: NSObject {
     @IBOutlet private weak var statusMenu: NSMenu!
 
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    private let headerMenuItem: NSMenuItem = {
+        let instance = NSMenuItem(title: "Connected displays:", action: nil, keyEquivalent: "")
+        instance.tag = 0
+        return instance
+    }()
 
     private let displayManager = DisplayManager()
-    private var displayItems: [DisplayMenuItem] = []
+    private var displays: [Display] = []
+    private var displayMenuItems: [NSMenuItem] = []
 
     override func awakeFromNib() {
-        let headerMenuItem = NSMenuItem(title: "Displays:", action: nil, keyEquivalent: "")
-        headerMenuItem.tag = 0
-
         statusMenu.insertItem(headerMenuItem, at: 0)
 
         statusItem.title = "Calcifer"
@@ -36,47 +39,41 @@ class StatusMenuController: NSObject {
         NSApplication.shared.terminate(self)
     }
 
-    private func updateMenuItems() {
-        let headerIndex = statusMenu.indexOfItem(withTag: 0)
-        var separatorIndex = 0
+    private func updateMenuItems(with displays: [Display]) {
+        let headerIndex = statusMenu.index(of: headerMenuItem)
+        let firstDisplayIndex = headerIndex + 1
+        let patches = patch(from: self.displays, to: displays)
 
-        for (index, menuItem) in statusMenu.items.enumerated() where menuItem.isSeparatorItem {
-            separatorIndex = index
-        }
-
-        assert(separatorIndex != 0, "Menu state invalid, can't update display items")
-
-        if headerIndex.distance(to: separatorIndex) > 1 {
-            for index in headerIndex + 1..<separatorIndex {
-                statusMenu.removeItem(at: index)
+        for patch in patches {
+            switch patch {
+            case .deletion(index: let offset):
+                statusMenu.items.remove(at: firstDisplayIndex + offset)
+            case .insertion(index: let offset, element: let display):
+                let menuItem = createMenuItem(for: display)
+                statusMenu.insertItem(menuItem, at: firstDisplayIndex + offset)
             }
         }
 
-        let insertionStart = headerIndex + 1
-        for (index, displayItem) in displayItems.enumerated() {
-            statusMenu.insertItem(displayItem.menuItem, at: insertionStart + index)
+        self.displays = displays
+    }
+
+    private func createMenuItem(for display: Display) -> NSMenuItem {
+        let menuItem = NSMenuItem(title: display.name, action: nil, keyEquivalent: "")
+        menuItem.tag = Int(display.id)
+
+        let view = DisplayMenuItemView.loadInstanceFromNib()
+        view.setName(display.name)
+        view.sliderValueChangedClosure = { [displayManager] newValue in
+            displayManager.setBrightnessForDisplay(display.id, to: newValue)
         }
+
+        menuItem.view = view
+        return menuItem
     }
 }
 
 extension StatusMenuController: DisplayManagerDelegate {
     func displayManager(_ manager: DisplayManager, didRefreshExternalDisplays displays: [Display]) {
-        let updatedDisplayItems = displays.map { display -> DisplayMenuItem in
-            let menuItem = DisplayMenuItem(fromDisplay: display)
-            menuItem.delegate = self
-            return menuItem
-        }
-
-        // The call to updateMenuItems() will properly remove any (now) old display references
-        let patches = patch(from: displayItems, to: updatedDisplayItems)
-        displayItems = displayItems.apply(patches)
-
-        updateMenuItems()
-    }
-}
-
-extension StatusMenuController: DisplayMenuItemControlsDelegate {
-    func brightnessSliderFor(_ display: Display, changedTo brightness: Int) {
-        displayManager.setBrightnessForDisplay(display.id, to: brightness)
+        updateMenuItems(with: displays)
     }
 }
