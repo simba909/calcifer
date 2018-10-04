@@ -27,6 +27,10 @@ class DisplayMenuItemView: NSView {
         nameLabel.stringValue = name
     }
 
+    func setSliderValue(_ value: Int) {
+        slider.integerValue = value
+    }
+
     @IBAction func sliderValueChanged(_ sender: Any) {
         if previousSliderValue != slider.integerValue {
             sliderValueChangedClosure?(slider.integerValue)

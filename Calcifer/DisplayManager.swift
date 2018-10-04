@@ -12,13 +12,23 @@ protocol DisplayManagerDelegate: class {
     func displayManager(_ manager: DisplayManager, didRefreshExternalDisplays displays: [Display])
 }
 
-class DisplayManager: NSObject {
+private extension Display {
+    var brightnessPreferenceKey: String {
+        return "\(serial).brightness"
+    }
+}
 
+class DisplayManager {
+
+    private static let maxDisplayCount: UInt32 = 8
+    private static let defaultDisplayBrightness = 35
+
+    private let preferenceManager = PreferenceManager()
     private let communicator = DisplayCommunicator()
-    private let maxDisplayCount: UInt32 = 8
 
     weak var delegate: DisplayManagerDelegate?
 
+    private(set) var connectedDisplays: [Display] = []
     private(set) var monitoringChanges = false
 
     func monitorDisplayChanges() {
@@ -56,16 +66,21 @@ class DisplayManager: NSObject {
             return Display(id: displayId, name: properties.name, serial: properties.serial)
         }
 
+        connectedDisplays = displays
         delegate?.displayManager(self, didRefreshExternalDisplays: displays)
     }
 
-    func getBrightnessForDisplay(_ displayId: CGDirectDisplayID) -> Int {
-        let currentBrightness = communicator.getBrightnessFor(displayId)
-        return Int(currentBrightness)
+    func getBrightnessForDisplay(_ display: Display) -> Int {
+        // The DisplayCommunicator _can_ be used to fetch display brightness from the screen, but
+        // that turns out to not work in all cases and can even freeze some systems.
+        // Instead we use the PreferenceManager to persist the last used brightness.
+        let persistedBrightness = preferenceManager.integer(forKey: display.brightnessPreferenceKey)
+        return persistedBrightness > 0 ? persistedBrightness : DisplayManager.defaultDisplayBrightness
     }
 
-    func setBrightnessForDisplay(_ displayId: CGDirectDisplayID, to value: Int) {
-        communicator.setBrightness(Int32(value), forDisplay: displayId)
+    func setBrightnessForDisplay(_ display: Display, to value: Int) {
+        communicator.setBrightness(Int32(value), forDisplay: display.id)
+        preferenceManager.set(value, forKey: display.brightnessPreferenceKey)
     }
 
     @objc private func displayConfigurationUpdated(notification: Notification) {
@@ -73,10 +88,10 @@ class DisplayManager: NSObject {
     }
 
     private func fetchExternalDisplayIds() -> [CGDirectDisplayID] {
-        var activeDisplays: [CGDirectDisplayID] = Array(repeating: 0, count: Int(maxDisplayCount))
+        var activeDisplays: [CGDirectDisplayID] = Array(repeating: 0, count: Int(DisplayManager.maxDisplayCount))
         var displayCount: UInt32 = 0
 
-        CGGetActiveDisplayList(maxDisplayCount, &activeDisplays, &displayCount)
+        CGGetActiveDisplayList(DisplayManager.maxDisplayCount, &activeDisplays, &displayCount)
 
         var externalDisplays: [CGDirectDisplayID] = []
         for index in 0..<Int(displayCount) {

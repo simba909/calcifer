@@ -63,8 +63,9 @@ class StatusMenuController: NSObject {
 
         let view = DisplayMenuItemView.loadInstanceFromNib()
         view.setName(display.name)
-        view.sliderValueChangedClosure = { [displayManager] newValue in
-            displayManager.setBrightnessForDisplay(display.id, to: newValue)
+        view.setSliderValue(displayManager.getBrightnessForDisplay(display))
+        view.sliderValueChangedClosure = { [weak displayManager] newValue in
+            displayManager?.setBrightnessForDisplay(display, to: newValue)
         }
 
         menuItem.view = view
