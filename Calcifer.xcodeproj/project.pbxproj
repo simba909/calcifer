@@ -24,6 +24,7 @@
 		F442BB04201B813A00B8F2F7 /* Double+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F442BB03201B813A00B8F2F7 /* Double+Rounded.swift */; };
 		F475ED3D201BA924001C435F /* DisplayCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = F475ED3C201BA924001C435F /* DisplayCommunicator.m */; };
 		F475ED43201BACE7001C435F /* DisplayProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F475ED42201BACE7001C435F /* DisplayProperties.m */; };
+		F47A01DC2167AF0500C9492A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F47A01DB2167AF0500C9492A /* Credits.rtf */; };
 		F48046DA207A791400B0F2C2 /* CGDirectDisplayID+BuiltIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48046D9207A791400B0F2C2 /* CGDirectDisplayID+BuiltIn.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		F475ED3E201BA941001C435F /* DisplayCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayCommunicator.h; sourceTree = "<group>"; };
 		F475ED41201BACE7001C435F /* DisplayProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayProperties.h; sourceTree = "<group>"; };
 		F475ED42201BACE7001C435F /* DisplayProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisplayProperties.m; sourceTree = "<group>"; };
+		F47A01DB2167AF0500C9492A /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		F48046D9207A791400B0F2C2 /* CGDirectDisplayID+BuiltIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGDirectDisplayID+BuiltIn.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 				F42B2422201B2E5200BB7202 /* Assets.xcassets */,
 				F42B2432201B72B200BB7202 /* Calcifer-Bridging-Header.h */,
 				F42B2428201B2E5200BB7202 /* Calcifer.entitlements */,
+				F47A01DB2167AF0500C9492A /* Credits.rtf */,
 				F42B2427201B2E5200BB7202 /* Info.plist */,
 				F42B2424201B2E5200BB7202 /* MainMenu.xib */,
 			);
@@ -251,6 +254,7 @@
 				F42B2423201B2E5200BB7202 /* Assets.xcassets in Resources */,
 				F41EB8B521639CE200CAC744 /* DisplayMenuItemView.xib in Resources */,
 				F42B2426201B2E5200BB7202 /* MainMenu.xib in Resources */,
+				F47A01DC2167AF0500C9492A /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

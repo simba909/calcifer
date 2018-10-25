@@ -13,7 +13,7 @@ class StatusMenuController: NSObject {
 
     @IBOutlet private weak var statusMenu: NSMenu!
 
-    private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     private let headerMenuItem: NSMenuItem = {
         let instance = NSMenuItem(title: "Connected displays:", action: nil, keyEquivalent: "")
         instance.tag = 0
@@ -27,7 +27,9 @@ class StatusMenuController: NSObject {
     override func awakeFromNib() {
         statusMenu.insertItem(headerMenuItem, at: 0)
 
-        statusItem.title = "Calcifer"
+        let statusImage = NSImage(imageLiteralResourceName: "StatusItemIcon")
+        statusImage.size = NSSize(width: 18, height: 18)
+        statusItem.button?.image = statusImage
         statusItem.menu = statusMenu
 
         displayManager.delegate = self
