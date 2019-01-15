@@ -12,6 +12,7 @@ class DisplayMenuItemView: NSView {
 
     @IBOutlet private weak var nameLabel: NSTextField!
     @IBOutlet private weak var slider: NSSlider!
+    @IBOutlet private weak var percentageLabel: NSTextField!
 
     private var previousSliderValue = 0
 
@@ -29,12 +30,19 @@ class DisplayMenuItemView: NSView {
 
     func setSliderValue(_ value: Int) {
         slider.integerValue = value
+        updatePercentageLabel(value)
     }
 
-    @IBAction func sliderValueChanged(_ sender: Any) {
-        if previousSliderValue != slider.integerValue {
-            sliderValueChangedClosure?(slider.integerValue)
-            previousSliderValue = slider.integerValue
+    @IBAction private func sliderValueChanged(_ sender: Any) {
+        let newValue = slider.integerValue
+        if previousSliderValue != newValue {
+            updatePercentageLabel(newValue)
+            sliderValueChangedClosure?(newValue)
+            previousSliderValue = newValue
         }
+    }
+
+    private func updatePercentageLabel(_ value: Int) {
+        percentageLabel.stringValue = "\(value)%"
     }
 }

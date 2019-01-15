@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,38 +10,53 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="DisplayMenuItemView" customModule="Calcifer" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="194" height="48"/>
+            <rect key="frame" x="0.0" y="0.0" width="258" height="49"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uw7-mY-CAh">
-                    <rect key="frame" x="18" y="27" width="162" height="17"/>
+                    <rect key="frame" x="18" y="27" width="226" height="18"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="DELL U2718Q" id="byp-BQ-oYm">
-                        <font key="font" usesAppearanceFont="YES"/>
-                        <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <font key="font" metaFont="system" size="14"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YdQ-0z-Vz8">
-                    <rect key="frame" x="18" y="6" width="162" height="19"/>
+                    <rect key="frame" x="18" y="6" width="180" height="19"/>
                     <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="35" tickMarkPosition="above" sliderType="linear" id="Xgb-vx-nm3"/>
                     <connections>
                         <action selector="sliderValueChanged:" target="c22-O7-iKe" id="SnL-pr-Odk"/>
                     </connections>
                 </slider>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8qX-cW-ggV">
+                    <rect key="frame" x="200" y="8" width="44" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Ul8-Di-t6o"/>
+                    </constraints>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="77%" id="lXl-TN-h4g">
+                        <font key="font" metaFont="system" size="12"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="YdQ-0z-Vz8" secondAttribute="bottom" constant="8" id="2wU-dr-kJa"/>
                 <constraint firstItem="YdQ-0z-Vz8" firstAttribute="top" secondItem="uw7-mY-CAh" secondAttribute="bottom" constant="4" id="3AE-vN-h0e"/>
+                <constraint firstItem="8qX-cW-ggV" firstAttribute="leading" secondItem="YdQ-0z-Vz8" secondAttribute="trailing" constant="6" id="DPQ-BC-mJv"/>
                 <constraint firstItem="uw7-mY-CAh" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="4" id="M0Z-p5-s5F"/>
-                <constraint firstAttribute="trailing" secondItem="YdQ-0z-Vz8" secondAttribute="trailing" constant="16" id="QUc-zv-9Cf"/>
+                <constraint firstAttribute="trailing" secondItem="8qX-cW-ggV" secondAttribute="trailing" constant="16" id="Pbv-z3-Ne4"/>
                 <constraint firstAttribute="trailing" secondItem="uw7-mY-CAh" secondAttribute="trailing" constant="16" id="Rjx-39-cWK"/>
                 <constraint firstItem="uw7-mY-CAh" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="iql-aT-Zct"/>
+                <constraint firstItem="8qX-cW-ggV" firstAttribute="firstBaseline" secondItem="YdQ-0z-Vz8" secondAttribute="firstBaseline" id="m21-0E-RDE"/>
                 <constraint firstItem="YdQ-0z-Vz8" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="n1r-k5-JEE"/>
             </constraints>
             <connections>
                 <outlet property="nameLabel" destination="uw7-mY-CAh" id="pQt-Jp-Xej"/>
+                <outlet property="percentageLabel" destination="8qX-cW-ggV" id="Rea-tl-KU3"/>
                 <outlet property="slider" destination="YdQ-0z-Vz8" id="x49-jA-fBq"/>
             </connections>
+            <point key="canvasLocation" x="171" y="156.5"/>
         </customView>
     </objects>
 </document>

@@ -118,8 +118,8 @@
 		F41EB8B321639CBB00CAC744 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F41EB8B421639CE200CAC744 /* DisplayMenuItemView.xib */,
 				F41EB8B62163A62300CAC744 /* DisplayMenuItemView.swift */,
+				F41EB8B421639CE200CAC744 /* DisplayMenuItemView.xib */,
 				F41EB8B82163A73E00CAC744 /* NSNibLoadable.swift */,
 			);
 			path = Views;
