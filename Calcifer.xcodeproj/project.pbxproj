@@ -22,6 +22,7 @@
 		F42B2431201B612600BB7202 /* DisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42B2430201B612600BB7202 /* DisplayManager.swift */; };
 		F42B2436201B732200BB7202 /* DDC.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B2434201B732200BB7202 /* DDC.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		F442BB04201B813A00B8F2F7 /* Double+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F442BB03201B813A00B8F2F7 /* Double+Rounded.swift */; };
+		F4665EE021F4B5E0004B7592 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4665EDF21F4B5E0004B7592 /* Logger.swift */; };
 		F475ED3D201BA924001C435F /* DisplayCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = F475ED3C201BA924001C435F /* DisplayCommunicator.m */; };
 		F475ED43201BACE7001C435F /* DisplayProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F475ED42201BACE7001C435F /* DisplayProperties.m */; };
 		F47A01DC2167AF0500C9492A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F47A01DB2167AF0500C9492A /* Credits.rtf */; };
@@ -73,6 +74,7 @@
 		F42B2434201B732200BB7202 /* DDC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DDC.c; sourceTree = "<group>"; };
 		F42B2435201B732200BB7202 /* DDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDC.h; sourceTree = "<group>"; };
 		F442BB03201B813A00B8F2F7 /* Double+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounded.swift"; sourceTree = "<group>"; };
+		F4665EDF21F4B5E0004B7592 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		F475ED3C201BA924001C435F /* DisplayCommunicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisplayCommunicator.m; sourceTree = "<group>"; };
 		F475ED3E201BA941001C435F /* DisplayCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayCommunicator.h; sourceTree = "<group>"; };
 		F475ED41201BACE7001C435F /* DisplayProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayProperties.h; sourceTree = "<group>"; };
@@ -147,10 +149,11 @@
 			children = (
 				F42B2420201B2E5200BB7202 /* AppDelegate.swift */,
 				F42B2433201B72FF00BB7202 /* ddcctl */,
-				F4222E3B2077AD1D0044E11C /* Display.swift */,
 				F48046D8207A777200B0F2C2 /* DisplayCommunication */,
 				F42B2430201B612600BB7202 /* DisplayManager.swift */,
 				F442BB05201B819100B8F2F7 /* Extensions */,
+				F4665EDF21F4B5E0004B7592 /* Logger.swift */,
+				F4665EE121F4B697004B7592 /* Models */,
 				F41D0901216652AF003D2586 /* PreferenceManager.swift */,
 				F42B242E201B4B1800BB7202 /* StatusMenuController.swift */,
 				F41EB8B2216374FB00CAC744 /* Supporting Files */,
@@ -175,6 +178,14 @@
 				F442BB03201B813A00B8F2F7 /* Double+Rounded.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F4665EE121F4B697004B7592 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F4222E3B2077AD1D0044E11C /* Display.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F48046D8207A777200B0F2C2 /* DisplayCommunication */ = {
@@ -295,6 +306,7 @@
 				F4222E3C2077AD1D0044E11C /* Display.swift in Sources */,
 				F41EB8B72163A62300CAC744 /* DisplayMenuItemView.swift in Sources */,
 				F42B2431201B612600BB7202 /* DisplayManager.swift in Sources */,
+				F4665EE021F4B5E0004B7592 /* Logger.swift in Sources */,
 				F475ED3D201BA924001C435F /* DisplayCommunicator.m in Sources */,
 				F42B2421201B2E5200BB7202 /* AppDelegate.swift in Sources */,
 				F442BB04201B813A00B8F2F7 /* Double+Rounded.swift in Sources */,

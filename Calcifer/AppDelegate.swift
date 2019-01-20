@@ -10,12 +10,11 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        print("Starting up!")
+        // Use?
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        print("Shutting down")
+        // Use?
     }
 }

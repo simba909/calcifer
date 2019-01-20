@@ -18,8 +18,7 @@ private extension Display {
     }
 }
 
-class DisplayManager {
-
+final class DisplayManager {
     private static let maxDisplayCount: UInt32 = 8
     private static let defaultDisplayBrightness = 35
 
@@ -55,7 +54,7 @@ class DisplayManager {
     }
 
     func refreshExternalDisplays() {
-        print("Updating list of available displays...")
+        Logger.log("Updating list of available displays")
 
         let displayIds = fetchExternalDisplayIds()
         let displays = displayIds.compactMap { displayId -> Display? in
