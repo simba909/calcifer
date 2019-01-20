@@ -9,13 +9,18 @@
 import AppKit
 import Differ
 
-class StatusMenuController: NSObject {
+private enum HeaderMenuTitleCases: String {
+    case noItems = "No displays connected"
+    case standard = "Connected displays:"
+}
+
+final class StatusMenuController: NSObject {
 
     @IBOutlet private weak var statusMenu: NSMenu!
 
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     private let headerMenuItem: NSMenuItem = {
-        let instance = NSMenuItem(title: "Connected displays:", action: nil, keyEquivalent: "")
+        let instance = NSMenuItem(title: HeaderMenuTitleCases.standard.rawValue, action: nil, keyEquivalent: "")
         instance.tag = 0
         return instance
     }()
@@ -56,6 +61,12 @@ class StatusMenuController: NSObject {
             }
         }
 
+        if displays.isEmpty {
+            headerMenuItem.title = HeaderMenuTitleCases.noItems.rawValue
+        } else {
+            headerMenuItem.title = HeaderMenuTitleCases.standard.rawValue
+        }
+
         self.displays = displays
     }
 
@@ -65,7 +76,9 @@ class StatusMenuController: NSObject {
 
         let view = DisplayMenuItemView.loadInstanceFromNib()
         view.setName(display.name)
-        view.setSliderValue(displayManager.getBrightnessForDisplay(display))
+
+        let lastBrightness = displayManager.getBrightnessForDisplay(display)
+        view.setSliderValue(lastBrightness)
         view.sliderValueChangedClosure = { [weak displayManager] newValue in
             displayManager?.setBrightnessForDisplay(display, to: newValue)
         }
