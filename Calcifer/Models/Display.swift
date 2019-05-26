@@ -7,9 +7,16 @@
 //
 
 import Foundation
+import DifferenceKit
 
 struct Display: Equatable {
     let id: CGDirectDisplayID
     let name: String
     let serial: String
+}
+
+extension Display: Differentiable {
+    var differenceIdentifier: CGDirectDisplayID {
+        return id
+    }
 }

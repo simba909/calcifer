@@ -16,7 +16,25 @@ class DisplayMenuItemView: NSView {
 
     private var previousSliderValue = 0
 
-    var sliderValueChangedClosure: ((Int) -> Void)?
+    var displayName: String {
+        get {
+            return nameLabel.stringValue
+        }
+        set {
+            nameLabel.stringValue = newValue
+        }
+    }
+
+    var brightness: Brightness {
+        get {
+            return slider.integerValue
+        }
+        set {
+            slider.integerValue = newValue
+        }
+    }
+
+    var brightnessChangedClosure: ((Brightness) -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,22 +42,16 @@ class DisplayMenuItemView: NSView {
         previousSliderValue = slider.integerValue
     }
 
-    func setName(_ name: String) {
-        nameLabel.stringValue = name
-    }
-
-    func setSliderValue(_ value: Int) {
-        slider.integerValue = value
-        updatePercentageLabel(value)
-    }
-
     @IBAction private func sliderValueChanged(_ sender: Any) {
         let newValue = slider.integerValue
-        if previousSliderValue != newValue {
-            updatePercentageLabel(newValue)
-            sliderValueChangedClosure?(newValue)
-            previousSliderValue = newValue
+
+        guard newValue != previousSliderValue else {
+            return
         }
+
+        updatePercentageLabel(newValue)
+        brightnessChangedClosure?(newValue)
+        previousSliderValue = newValue
     }
 
     private func updatePercentageLabel(_ value: Int) {

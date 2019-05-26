@@ -7,26 +7,21 @@
 //
 
 import AppKit
-import Differ
-
-private enum HeaderMenuTitleCases: String {
-    case noItems = "No displays connected"
-    case standard = "Connected displays:"
-}
+import DifferenceKit
 
 final class StatusMenuController: NSObject {
 
     @IBOutlet private weak var statusMenu: NSMenu!
 
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-    private let headerMenuItem: NSMenuItem = {
-        let instance = NSMenuItem(title: HeaderMenuTitleCases.standard.rawValue, action: nil, keyEquivalent: "")
-        instance.tag = 0
-        return instance
-    }()
+    private let headerMenuItem = HeaderMenuItem()
 
     private let displayManager = DisplayManager()
-    private var displays: [Display] = []
+    private var displays: [Display] = [] {
+        didSet {
+            headerMenuItem.updateTitleForItemCount(displays.count)
+        }
+    }
     private var displayMenuItems: [NSMenuItem] = []
 
     override func awakeFromNib() {
@@ -46,44 +41,39 @@ final class StatusMenuController: NSObject {
         NSApplication.shared.terminate(self)
     }
 
-    private func updateMenuItems(with displays: [Display]) {
+    private func updateMenuItems(with newDisplays: [Display]) {
+        let stagedChangeset = StagedChangeset(source: self.displays, target: newDisplays)
+
+        guard let changeset = stagedChangeset.first else {
+            return
+        }
+
         let headerIndex = statusMenu.index(of: headerMenuItem)
         let firstDisplayIndex = headerIndex + 1
-        let patches = patch(from: self.displays, to: displays)
 
-        for patch in patches {
-            switch patch {
-            case .deletion(index: let offset):
-                statusMenu.items.remove(at: firstDisplayIndex + offset)
-            case .insertion(index: let offset, element: let display):
-                let menuItem = createMenuItem(for: display)
-                statusMenu.insertItem(menuItem, at: firstDisplayIndex + offset)
+        changeset.elementUpdated.forEach { path in
+            guard let statusMenuItem = statusMenu.items[firstDisplayIndex + path.element] as? DisplayMenuItem else {
+                return
             }
+
+            statusMenuItem.updateDisplay(using: newDisplays[path.element])
         }
 
-        if displays.isEmpty {
-            headerMenuItem.title = HeaderMenuTitleCases.noItems.rawValue
-        } else {
-            headerMenuItem.title = HeaderMenuTitleCases.standard.rawValue
+        changeset.elementDeleted.forEach { path in
+            statusMenu.items.remove(at: firstDisplayIndex + path.element)
         }
 
-        self.displays = displays
+        changeset.elementInserted.forEach { path in
+            let menuItem = createMenuItem(for: newDisplays[path.element])
+            statusMenu.insertItem(menuItem, at: firstDisplayIndex + path.element)
+        }
+
+        self.displays = newDisplays
     }
 
     private func createMenuItem(for display: Display) -> NSMenuItem {
-        let menuItem = NSMenuItem(title: display.name, action: nil, keyEquivalent: "")
-        menuItem.tag = Int(display.id)
-
-        let view = DisplayMenuItemView.loadInstanceFromNib()
-        view.setName(display.name)
-
-        let lastBrightness = displayManager.getBrightnessForDisplay(display)
-        view.setSliderValue(lastBrightness)
-        view.sliderValueChangedClosure = { [weak displayManager] newValue in
-            displayManager?.setBrightnessForDisplay(display, to: newValue)
-        }
-
-        menuItem.view = view
+        let menuItem = DisplayMenuItem(display: display)
+        menuItem.delegate = self
         return menuItem
     }
 }
@@ -91,5 +81,11 @@ final class StatusMenuController: NSObject {
 extension StatusMenuController: DisplayManagerDelegate {
     func displayManager(_ manager: DisplayManager, didRefreshExternalDisplays displays: [Display]) {
         updateMenuItems(with: displays)
+    }
+}
+
+extension StatusMenuController: DisplayMenuItemDelegate {
+    func displayMenuItem(_ item: DisplayMenuItem, changedBrightnessTo brightness: Brightness) {
+        displayManager.setBrightnessForDisplay(item.display, to: brightness)
     }
 }
