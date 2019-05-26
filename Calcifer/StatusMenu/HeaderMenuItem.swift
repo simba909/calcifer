@@ -10,11 +10,11 @@ import AppKit
 
 class HeaderMenuItem: NSMenuItem {
     private static var noItemsTitle: String {
-        return "No displays connected"
+        return NSLocalizedString("StatusMenuHeaderNoDisplays", comment: "")
     }
 
     private static var itemsPresentTitle: String {
-        return "Connected displays:"
+        return NSLocalizedString("StatusMenuHeaderConnectedDisplays", comment: "")
     }
 
     init() {

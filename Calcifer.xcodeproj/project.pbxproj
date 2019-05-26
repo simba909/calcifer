@@ -29,6 +29,7 @@
 		F494389E229AE73600113062 /* DisplayMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494389D229AE73600113062 /* DisplayMenuItem.swift */; };
 		F49438A0229AE89500113062 /* Brightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494389F229AE89500113062 /* Brightness.swift */; };
 		F49438A2229AEF9100113062 /* HeaderMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49438A1229AEF9100113062 /* HeaderMenuItem.swift */; };
+		F49438A9229B038200113062 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F49438AB229B038200113062 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,6 +86,9 @@
 		F494389D229AE73600113062 /* DisplayMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMenuItem.swift; sourceTree = "<group>"; };
 		F494389F229AE89500113062 /* Brightness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brightness.swift; sourceTree = "<group>"; };
 		F49438A1229AEF9100113062 /* HeaderMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderMenuItem.swift; sourceTree = "<group>"; };
+		F49438A3229B011A00113062 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		F49438AC229B038500113062 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F49438AD229B039600113062 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,11 +115,12 @@
 		F41EB8B2216374FB00CAC744 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F42B2422201B2E5200BB7202 /* Assets.xcassets */,
-				F42B2432201B72B200BB7202 /* Calcifer-Bridging-Header.h */,
 				F42B2428201B2E5200BB7202 /* Calcifer.entitlements */,
-				F47A01DB2167AF0500C9492A /* Credits.rtf */,
+				F42B2432201B72B200BB7202 /* Calcifer-Bridging-Header.h */,
 				F42B2427201B2E5200BB7202 /* Info.plist */,
+				F47A01DB2167AF0500C9492A /* Credits.rtf */,
+				F42B2422201B2E5200BB7202 /* Assets.xcassets */,
+				F49438AB229B038200113062 /* Localizable.strings */,
 				F42B2424201B2E5200BB7202 /* MainMenu.xib */,
 			);
 			path = "Supporting Files";
@@ -158,8 +163,8 @@
 				F42B2433201B72FF00BB7202 /* ddcctl */,
 				F48046D8207A777200B0F2C2 /* DisplayCommunication */,
 				F442BB05201B819100B8F2F7 /* Extensions */,
-				F494389C229AE71800113062 /* Menu */,
 				F4665EE121F4B697004B7592 /* Models */,
+				F494389C229AE71800113062 /* StatusMenu */,
 				F41EB8B2216374FB00CAC744 /* Supporting Files */,
 				F41EB8B321639CBB00CAC744 /* Views */,
 			);
@@ -204,13 +209,13 @@
 			path = DisplayCommunication;
 			sourceTree = "<group>";
 		};
-		F494389C229AE71800113062 /* Menu */ = {
+		F494389C229AE71800113062 /* StatusMenu */ = {
 			isa = PBXGroup;
 			children = (
 				F494389D229AE73600113062 /* DisplayMenuItem.swift */,
 				F49438A1229AEF9100113062 /* HeaderMenuItem.swift */,
 			);
-			path = Menu;
+			path = StatusMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +265,7 @@
 			knownRegions = (
 				en,
 				Base,
+				sv,
 			);
 			mainGroup = F42B2414201B2E5200BB7202;
 			productRefGroup = F42B241E201B2E5200BB7202 /* Products */;
@@ -276,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F49438A9229B038200113062 /* Localizable.strings in Resources */,
 				F42B2423201B2E5200BB7202 /* Assets.xcassets in Resources */,
 				F41EB8B521639CE200CAC744 /* DisplayMenuItemView.xib in Resources */,
 				F42B2426201B2E5200BB7202 /* MainMenu.xib in Resources */,
@@ -336,8 +343,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				F42B2425201B2E5200BB7202 /* Base */,
+				F49438A3229B011A00113062 /* sv */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		F49438AB229B038200113062 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F49438AC229B038500113062 /* en */,
+				F49438AD229B039600113062 /* sv */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -347,6 +364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -406,6 +424,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
