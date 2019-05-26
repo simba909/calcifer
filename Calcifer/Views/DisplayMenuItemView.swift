@@ -31,6 +31,7 @@ class DisplayMenuItemView: NSView {
         }
         set {
             slider.integerValue = newValue
+            updatePercentageLabel(newValue)
         }
     }
 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F41D0902216652AF003D2586 /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D0901216652AF003D2586 /* PreferenceManager.swift */; };
 		F41EB8B521639CE200CAC744 /* DisplayMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41EB8B421639CE200CAC744 /* DisplayMenuItemView.xib */; };
 		F41EB8B72163A62300CAC744 /* DisplayMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41EB8B62163A62300CAC744 /* DisplayMenuItemView.swift */; };
 		F41EB8B92163A73E00CAC744 /* NSNibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41EB8B82163A73E00CAC744 /* NSNibLoadable.swift */; };
@@ -58,7 +57,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		F41D0901216652AF003D2586 /* PreferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
 		F41EB8B421639CE200CAC744 /* DisplayMenuItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisplayMenuItemView.xib; sourceTree = "<group>"; };
 		F41EB8B62163A62300CAC744 /* DisplayMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMenuItemView.swift; sourceTree = "<group>"; };
 		F41EB8B82163A73E00CAC744 /* NSNibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNibLoadable.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 				F42B2420201B2E5200BB7202 /* AppDelegate.swift */,
 				F42B2430201B612600BB7202 /* DisplayManager.swift */,
 				F4665EDF21F4B5E0004B7592 /* Logger.swift */,
-				F41D0901216652AF003D2586 /* PreferenceManager.swift */,
 				F42B242E201B4B1800BB7202 /* StatusMenuController.swift */,
 				F42B2433201B72FF00BB7202 /* ddcctl */,
 				F48046D8207A777200B0F2C2 /* DisplayCommunication */,
@@ -317,7 +314,6 @@
 				F42B242F201B4B1800BB7202 /* StatusMenuController.swift in Sources */,
 				F42B2436201B732200BB7202 /* DDC.c in Sources */,
 				F494389E229AE73600113062 /* DisplayMenuItem.swift in Sources */,
-				F41D0902216652AF003D2586 /* PreferenceManager.swift in Sources */,
 				F48046DA207A791400B0F2C2 /* CGDirectDisplayID+BuiltIn.swift in Sources */,
 				F41EB8B92163A73E00CAC744 /* NSNibLoadable.swift in Sources */,
 				F475ED43201BACE7001C435F /* DisplayProperties.m in Sources */,

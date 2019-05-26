@@ -74,6 +74,10 @@ final class StatusMenuController: NSObject {
     private func createMenuItem(for display: Display) -> NSMenuItem {
         let menuItem = DisplayMenuItem(display: display)
         menuItem.delegate = self
+
+        let persistedBrightness = displayManager.getBrightness(for: display)
+        menuItem.setBrightness(persistedBrightness)
+
         return menuItem
     }
 }
@@ -86,6 +90,6 @@ extension StatusMenuController: DisplayManagerDelegate {
 
 extension StatusMenuController: DisplayMenuItemDelegate {
     func displayMenuItem(_ item: DisplayMenuItem, changedBrightnessTo brightness: Brightness) {
-        displayManager.setBrightnessForDisplay(item.display, to: brightness)
+        displayManager.setBrightness(for: item.display, to: brightness)
     }
 }

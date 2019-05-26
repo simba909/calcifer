@@ -22,7 +22,7 @@ final class DisplayManager {
     private static let maxDisplayCount: UInt32 = 8
     private static let defaultDisplayBrightness = 35
 
-    private let preferenceManager = PreferenceManager()
+    private let defaults = UserDefaults.standard
     private let communicator = DisplayCommunicator()
 
     weak var delegate: DisplayManagerDelegate?
@@ -69,17 +69,17 @@ final class DisplayManager {
         delegate?.displayManager(self, didRefreshExternalDisplays: displays)
     }
 
-    func getBrightnessForDisplay(_ display: Display) -> Int {
+    func getBrightness(for display: Display) -> Int {
         // The DisplayCommunicator _can_ be used to fetch display brightness from the screen, but
         // that turns out to not work in all cases and can even freeze some systems.
-        // Instead we use the PreferenceManager to persist the last used brightness.
-        let persistedBrightness = preferenceManager.integer(forKey: display.brightnessPreferenceKey)
+        // Instead we use UserDefaults to persist the last used brightness.
+        let persistedBrightness = defaults.integer(forKey: display.brightnessPreferenceKey)
         return persistedBrightness > 0 ? persistedBrightness : DisplayManager.defaultDisplayBrightness
     }
 
-    func setBrightnessForDisplay(_ display: Display, to value: Int) {
+    func setBrightness(for display: Display, to value: Int) {
         communicator.setBrightness(Int32(value), forDisplay: display.id)
-        preferenceManager.set(value, forKey: display.brightnessPreferenceKey)
+        defaults.set(value, forKey: display.brightnessPreferenceKey)
     }
 
     @objc private func displayConfigurationUpdated(notification: Notification) {
