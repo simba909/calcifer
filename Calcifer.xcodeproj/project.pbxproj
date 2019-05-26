@@ -251,7 +251,7 @@
 				TargetAttributes = {
 					F42B241C201B2E5200BB7202 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -474,7 +474,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = se.jarbrant.Calcifer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Calcifer/Supporting Files/Calcifer-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -495,7 +495,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = se.jarbrant.Calcifer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Calcifer/Supporting Files/Calcifer-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
