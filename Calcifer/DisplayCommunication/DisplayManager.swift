@@ -14,7 +14,7 @@ protocol DisplayManagerDelegate: class {
 
 private extension Display {
     var brightnessPreferenceKey: String {
-        return "\(serial).brightness"
+        return "\(properties.serial).brightness"
     }
 }
 
@@ -58,11 +58,11 @@ final class DisplayManager {
 
         let displayIds = fetchExternalDisplayIds()
         let displays = displayIds.compactMap { displayId -> Display? in
-            guard let properties = communicator.getPropertiesFor(displayId) else {
+            guard let properties = communicator.properties(for: displayId) else {
                 return nil
             }
 
-            return Display(id: displayId, name: properties.name, serial: properties.serial)
+            return Display(id: displayId, properties: properties)
         }
 
         connectedDisplays = displays
@@ -78,7 +78,7 @@ final class DisplayManager {
     }
 
     func setBrightness(for display: Display, to value: Int) {
-        communicator.setBrightness(Int32(value), forDisplay: display.id)
+        communicator.setBrightness(value, forDisplay: display.id)
         defaults.set(value, forKey: display.brightnessPreferenceKey)
     }
 

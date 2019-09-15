@@ -27,11 +27,11 @@ class DisplayMenuItem: NSMenuItem {
     init(display: Display) {
         self.display = display
 
-        super.init(title: display.name, action: nil, keyEquivalent: "")
+        super.init(title: display.properties.name, action: nil, keyEquivalent: "")
 
         tag = Int(display.id)
 
-        displayItemView.displayName = display.name
+        displayItemView.displayName = display.properties.name
         displayItemView.brightnessChangedClosure = { [weak self] newValue in
             self?.brightnessChangedValue(to: newValue)
         }
@@ -47,7 +47,7 @@ class DisplayMenuItem: NSMenuItem {
 
     func updateDisplay(using newDisplay: Display) {
         self.display = newDisplay
-        displayItemView.displayName = display.name
+        displayItemView.displayName = display.properties.name
     }
 
     private func brightnessChangedValue(to newValue: Brightness) {

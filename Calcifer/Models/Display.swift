@@ -9,12 +9,24 @@
 import Foundation
 import DifferenceKit
 
-struct Display: Equatable {
+struct Display {
     let id: CGDirectDisplayID
-    let name: String
-    let serial: String
+    let properties: Properties
 }
 
+// MARK: - Display+Properties
+extension Display {
+    struct Properties {
+        var name: String
+        var serial: String
+    }
+}
+
+// MARK: - Equatable
+extension Display.Properties: Equatable {}
+extension Display: Equatable {}
+
+// MARK: - Differentiable
 extension Display: Differentiable {
     var differenceIdentifier: CGDirectDisplayID {
         return id

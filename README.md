@@ -20,8 +20,7 @@ $ make setup
 This will in turn perform:
 
 ```bash
-$ git submodule init                  # initializes the ddcctl dependency
-$ carthage bootstrap --platform macOS # installs other dependencies
+$ carthage bootstrap --platform macOS # installs dependencies
 ```
 
 Once the dependencies are installed, open the `.xcodeproj` with Xcode - and you're good to go! 🙂
