@@ -1,26 +1,11 @@
 # Calcifer 🔥
-macOS menubar app for controlling external display brightness. Based on the great work in the [DDCCTL repo](https://github.com/kfix/ddcctl).
+macOS menubar app for controlling external display brightness. Based on the great work in the [DDC.swift repo](https://github.com/reitermarkus/DDC.swift).
 
 ## Building from source
 
 ### Prerequisites
-To build this project you need [Carthage](https://github.com/Carthage/Carthage) and [SwiftLint](https://github.com/realm/SwiftLint), both available through [HomeBrew](https://brew.sh):
+Building this project requires Xcode 11. You might also want [SwiftLint](https://github.com/realm/SwiftLint), available through [HomeBrew](https://brew.sh):
 
 ```bash
-$ brew install carthage
 $ brew install swiftlint
 ```
-
-### Setup
-To fetch and build the project's dependencies, you just need to run:
-```bash
-$ make setup
-```
-
-This will in turn perform:
-
-```bash
-$ carthage bootstrap --platform macOS # installs dependencies
-```
-
-Once the dependencies are installed, open the `.xcodeproj` with Xcode - and you're good to go! 🙂
