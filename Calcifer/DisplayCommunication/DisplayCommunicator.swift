@@ -33,6 +33,10 @@ final class DisplayCommunicator {
             }
         }
 
+        if serialNumber == nil {
+            serialNumber = String(CGDisplaySerialNumber(displayID))
+        }
+
         if let displayName = displayName, let serialNumber = serialNumber {
             return Display.Properties(name: displayName, serial: serialNumber)
         }
